@@ -1,5 +1,6 @@
 package com.example.jwttutorial;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,6 @@ public class HelloController {
     @GetMapping("/hello")
     public ResponseEntity<String> hello(){
         // 간단한 문자열 return 해주는 API
-        return ResponseEntity.ok("hello");
+        return new ResponseEntity("Good",HttpStatus.OK);
     }
 }
