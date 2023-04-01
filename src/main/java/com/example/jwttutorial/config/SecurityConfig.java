@@ -5,9 +5,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.token.TokenService;
 import org.springframework.security.web.SecurityFilterChain;
 
+
+/**
+ * SecurityFilterChain: 특정한 요청 매핑(예를 들어 URL 패턴이나 HTTP 메서드)에 대해 적용되는 보안 필터 목록
+ * WebSecurityCustomizer: 보안 구성을 정의
+ */
 @Configuration
 @EnableWebSecurity // 스프링 시큐리티 필터가 스프링 필터체인에 등록이 됨
 public class SecurityConfig {
@@ -34,4 +40,12 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        //h2 하위의 모든 요청들과 파비콘 관련 요청은 무시한다.
+        return (web) -> web.ignoring().requestMatchers("/h2-console/**", "/favicon.ico");
+    }
+
+
 }
